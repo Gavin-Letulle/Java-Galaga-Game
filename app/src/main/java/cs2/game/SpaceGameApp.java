@@ -54,7 +54,7 @@ public class SpaceGameApp extends Application {
         player.display(g, 100, 100);
         swarm.display(g, 50, 50);
 
-        if(Math.random() * 20 == 20){
+        if(Math.random() * 45 < 1){
           swarm.shoot();
           bullets.add(swarm.shoot());
         }
@@ -80,5 +80,6 @@ public class SpaceGameApp extends Application {
       }
     });
     canvas.requestFocus();
+    
   }
 }

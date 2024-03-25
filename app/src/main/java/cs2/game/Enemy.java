@@ -22,6 +22,7 @@ public class Enemy extends Sprite {
   public Bullet shoot() { }
   */
   public Bullet shoot(){
-    return new Bullet(bulletPicture, pos, new Vec2(0, 50));
+    Vec2 clonedPos = new Vec2(pos.getX() + 2, pos.getY() + 18);
+    return new Bullet(bulletPicture, clonedPos, new Vec2(0, 8));
   }
 }
