@@ -37,8 +37,8 @@ public abstract class Sprite {
   public void display(GraphicsContext g) { }
   */
 
-  public void display(GraphicsContext g) { 
-    g.drawImage(img, 100,100, 50,100);
+  public void display(GraphicsContext g, double w, double h) { 
+    g.drawImage(img, pos.getX(), pos.getY(), w, h);
   }
 
   /*

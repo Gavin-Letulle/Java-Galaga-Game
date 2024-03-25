@@ -24,29 +24,30 @@ public class EnemySwarm {
     /*for(int i = 0; i < (nRows * nCols); i++){
       swarm.add(new Enemy(enemPic, bullPic, new Vec2()));
     }*/
-    double yPos = 0;
+    double yPos = 50;
     double xPos = 0;
-
+    swarm = new ArrayList<>();
     for(int i = 0; i < nRows; i ++){
       ArrayList<Enemy> row = new ArrayList<>();
+      xPos = 80;
       for(int j = 0; j < nCols; j ++){
         row.add(new Enemy(enemPic, bullPic, new Vec2(xPos, yPos)));
-        xPos += 10;
+        xPos += 65;
       }
       for(int j = 0; j < row.size(); j ++){
         swarm.add(row.get(j));
       }
-      yPos += 10;
+      yPos += 50;
     }
   }
   /*
   // This method should display all enemies in the swarm
   public void display(GraphicsContext g) { }
   */
-  public void display(GraphicsContext g){
+  public void display(GraphicsContext g, double w, double h){
     for(int i = 0; i < swarm.size(); i++){
       Enemy enemy = swarm.get(i);
-      g.drawImage(enemy.img, enemy.pos.getX(), enemy.pos.getY());
+      g.drawImage(enemy.img, enemy.pos.getX(), enemy.pos.getY(), w, h);
     }
   }
   /*
