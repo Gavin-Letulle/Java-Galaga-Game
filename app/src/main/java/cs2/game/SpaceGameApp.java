@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class SpaceGameApp extends Application {
   public void start(Stage stage) {
-    stage.setTitle("TITLE YOUR GAME HERE");
+    stage.setTitle("GALAGA");
     stage.show();
     //You can change the window size here if you want
     Canvas canvas = new Canvas(800,800);

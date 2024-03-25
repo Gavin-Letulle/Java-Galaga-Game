@@ -16,21 +16,39 @@ public abstract class Sprite {
    * DO NOT TRY TO WRITE EVERYTHING ALL AT ONCE. IT WILL NOT WORK.
    */
 
+  /*public static final Image playerSprite = new Image("file:GalagaShip.png");
+  public static final Image enemySprite1 = new Image("file:Bee.webp");
+  public static final Image enemySprite2 = new Image("file:Butterfly.png");
+  public static final Image enemySprite3 = new Image("file:Boss.webp");
+  public static final Image bulletSprite = new Image("file:Bullet.png");*/
 
   /*
   // The constructor should initialize the fields of the class
   public Sprite(Image i, Vec2 p) { }
   */
 
+  public Sprite(Image i, Vec2 p){
+    img = i;
+    pos = p;
+  }
+
   /*
   // This method should draw the image at the current position
   public void display(GraphicsContext g) { }
   */
+
+  public void display(GraphicsContext g) { 
+    g.drawImage(img, 100,100, 50,100);
+  }
 
   /*
   // This method should change the location/position of the sprite
   // by the amount specified in the parameter delta
   public void move(Vec2 delta) { }
    */
+  
+  public void move(Vec2 delta){
+    pos.addThis(delta);
+  }
 
 }
