@@ -8,6 +8,9 @@ import javafx.scene.image.Image;
 
 public class EnemySwarm {
   private ArrayList<Enemy> swarm;
+  public Image bulletPic;
+  /*public int numCols;
+  public int numRows;*/
 
   /*
   // This constructor should create a swarm of enemies in a grid
@@ -17,15 +20,43 @@ public class EnemySwarm {
   // in a grid pattern across the top of the screen.
   public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic) { }
   */
+  public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic){
+    /*for(int i = 0; i < (nRows * nCols); i++){
+      swarm.add(new Enemy(enemPic, bullPic, new Vec2()));
+    }*/
+    double yPos = 0;
+    double xPos = 0;
 
+    for(int i = 0; i < nRows; i ++){
+      ArrayList<Enemy> row = new ArrayList<>();
+      for(int j = 0; j < nCols; j ++){
+        row.add(new Enemy(enemPic, bullPic, new Vec2(xPos, yPos)));
+        xPos += 10;
+      }
+      for(int j = 0; j < row.size(); j ++){
+        swarm.add(row.get(j));
+      }
+      yPos += 10;
+    }
+  }
   /*
   // This method should display all enemies in the swarm
   public void display(GraphicsContext g) { }
   */
-
+  public void display(GraphicsContext g){
+    for(int i = 0; i < swarm.size(); i++){
+      Enemy enemy = swarm.get(i);
+      g.drawImage(enemy.img, enemy.pos.getX(), enemy.pos.getY());
+    }
+  }
   /*
   // This method should choose one enemy at random from the swarm,
   // and have that enemy shoot a bullet. Return that Bullet.
   public Bullet shoot() { }
   */
+  public Bullet shoot(){
+    int randomInt = (int) (Math.random() * (swarm.size() + 1));
+    Enemy enemy = swarm.get(randomInt);
+    return enemy.shoot();
+  }
 }
