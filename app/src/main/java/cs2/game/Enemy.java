@@ -22,6 +22,6 @@ public class Enemy extends Sprite {
   public Bullet shoot() { }
   */
   public Bullet shoot(){
-    return new Bullet(bulletPicture, pos, new Vec2(0, -50));
+    return new Bullet(bulletPicture, pos, new Vec2(0, 50));
   }
 }

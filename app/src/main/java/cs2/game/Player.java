@@ -22,20 +22,22 @@ public class Player extends Sprite {
   public Bullet shoot() { }
   */
   public Bullet shoot(){
-    return new Bullet(bulletPicture, pos, new Vec2(0, 50));
+    Vec2 clonedPos = new Vec2();
+    clonedPos = pos;
+    return new Bullet(bulletPicture, clonedPos, new Vec2(0, -50));
   }
   /*
   // This method should move the player left by some amount
   public void moveLeft() { }
   */
   public void moveLeft(){
-    move(new Vec2(-1, 0));
+    move(new Vec2(-10, 0));
   }
   /*
   // This method should move the player right by some amount
   public void moveRight() { }
   */
   public void moveRight(){
-    move(new Vec2(1, 0));
+    move(new Vec2(10, 0));
   }
 }

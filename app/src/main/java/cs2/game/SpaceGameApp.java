@@ -11,6 +11,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import java.util.ArrayList;
+import javafx.scene.input.KeyCode;
 
 public class SpaceGameApp extends Application {
 
@@ -53,9 +54,31 @@ public class SpaceGameApp extends Application {
         player.display(g, 100, 100);
         swarm.display(g, 50, 50);
 
+        if(Math.random() * 20 == 20){
+          swarm.shoot();
+          bullets.add(swarm.shoot());
+        }
+
+        for(int i = 0; i < bullets.size(); i ++){
+          bullets.get(i).display(g, 50, 60);
+          bullets.get(i).update();
+        }
       }
     };
     timer.start();
-    
+
+    canvas.setOnKeyPressed(event -> {
+      if (event.getCode() == KeyCode.RIGHT) {
+          player.moveRight();
+      }
+      if (event.getCode() == KeyCode.LEFT) {
+        player.moveLeft();
+      }
+      if (event.getCode() == KeyCode.SPACE) {
+        player.shoot();
+        bullets.add(player.shoot());
+      }
+    });
+    canvas.requestFocus();
   }
 }
