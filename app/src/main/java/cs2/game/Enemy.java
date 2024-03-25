@@ -11,11 +11,17 @@ public class Enemy extends Sprite {
   //**Remember that some fields are inherited from Sprite
   public Enemy(Image avatar, Image bulletPic, Vec2 p) { }
   */
-
+  public Enemy(Image avatar, Image bulletPic, Vec2 p){
+    super(avatar, p);
+    bulletPicture = bulletPic;
+  }
   /*
   // This method should create a new Bullet object and return it
   // The Bullet should be initialized with the bulletPicture, the
   // current position of the enemy, and a velocity going down the screen
   public Bullet shoot() { }
   */
+  public Bullet shoot(){
+    return new Bullet(bulletPicture, pos, new Vec2(0, -50));
+  }
 }

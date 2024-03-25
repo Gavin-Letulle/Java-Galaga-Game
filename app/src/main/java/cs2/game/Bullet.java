@@ -13,7 +13,6 @@ public class Bullet extends Sprite {
   public Bullet(Image bul, Vec2 p, Vec2 v) { }
   */
   public Bullet(Image bul, Vec2 p, Vec2 v){
-    //bul = bulletSprite;
     super(bul, p);
     vel = v;
   }
