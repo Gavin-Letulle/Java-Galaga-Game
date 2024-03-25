@@ -22,8 +22,7 @@ public class Player extends Sprite {
   public Bullet shoot() { }
   */
   public Bullet shoot(){
-    Vec2 clonedPos = new Vec2();
-    clonedPos = pos;
+    Vec2 clonedPos = new Vec2(pos.getX()+25, pos.getY()-25);
     return new Bullet(bulletPicture, clonedPos, new Vec2(0, -50));
   }
   /*

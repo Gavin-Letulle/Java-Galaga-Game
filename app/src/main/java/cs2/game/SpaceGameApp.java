@@ -68,10 +68,10 @@ public class SpaceGameApp extends Application {
     timer.start();
 
     canvas.setOnKeyPressed(event -> {
-      if (event.getCode() == KeyCode.RIGHT) {
+      if (event.getCode() == KeyCode.RIGHT && player.pos.getX() <= 718.5) {
           player.moveRight();
       }
-      if (event.getCode() == KeyCode.LEFT) {
+      if (event.getCode() == KeyCode.LEFT && player.pos.getX() >= -10) {
         player.moveLeft();
       }
       if (event.getCode() == KeyCode.SPACE) {
