@@ -76,14 +76,16 @@ public class Sampler {
     }
 
     public String sample(){
-        String str = "";
+        String key = "";
         HashMap<String,Double> probMap = new HashMap<String,Double>();
         for(String word : map.keySet()){
             probMap.put(word, getProbability(word));
         }
         for(String probWord : probMap.keySet()){
-            
+            if(Math.random() <= probMap.get(probWord)){
+                key = probWord;
+            }
         }
-        return str;
+        return key;
     }
 }
