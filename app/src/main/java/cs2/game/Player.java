@@ -30,21 +30,37 @@ public class Player extends Sprite {
   public void moveLeft() { }
   */
   public void moveLeft(){
-    move(new Vec2(-12, 0));
+    move(new Vec2(-6, 0));
+  }
+
+  public void moveHalfLeft(){
+    move(new Vec2(-3, 0));
   }
   /*
   // This method should move the player right by some amount
   public void moveRight() { }
   */
   public void moveRight(){
-    move(new Vec2(12, 0));
+    move(new Vec2(6, 0));
+  }
+
+  public void moveHalfRight(){
+    move(new Vec2(3, 0));
   }
 
   public void moveUp(){
-    move(new Vec2(0, -12));
+    move(new Vec2(0, -6));
+  }
+
+  public void moveHalfUp(){
+    move(new Vec2(0, -3));
   }
 
   public void moveDown(){
-    move(new Vec2(0, 12));
+    move(new Vec2(0, 6));
+  }
+
+  public void moveHalfDown(){
+    move(new Vec2(0, 3));
   }
 }

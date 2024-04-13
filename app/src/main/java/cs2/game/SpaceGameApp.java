@@ -10,8 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.util.ArrayList;
 import javafx.scene.input.KeyCode;
+import java.util.*;
 
 public class SpaceGameApp extends Application {
 
@@ -45,6 +45,7 @@ public class SpaceGameApp extends Application {
     Player player = new Player(playerSprite, bulletSprite, new Vec2(350.0, 700.0));
     EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite);
     ArrayList<Bullet> bullets = new ArrayList<>();
+    Set<KeyCode> keys = new HashSet<>();
 
     AnimationTimer timer = new AnimationTimer() {
       public void handle(long t) {
@@ -59,6 +60,78 @@ public class SpaceGameApp extends Application {
           bullets.add(swarm.shoot());
         }
 
+        for(KeyCode key : keys){
+          if (key == KeyCode.RIGHT && player.pos.getX() <= 718.5) {
+            if(keys.contains(KeyCode.D)){
+              player.moveHalfRight();
+            }
+            else{
+              player.moveRight();
+            }
+          }
+          if (key == KeyCode.D && player.pos.getX() <= 718.5) {
+            if(keys.contains(KeyCode.RIGHT)){
+              player.moveHalfRight();
+            }
+            else{
+              player.moveRight();
+            }
+          }
+          if (key == KeyCode.LEFT && player.pos.getX() >= -10) {
+            if(keys.contains(KeyCode.A)){
+              player.moveHalfLeft();
+            }
+            else{
+              player.moveLeft();
+            }
+          }
+          if (key == KeyCode.A && player.pos.getX() >= -10) {
+            if(keys.contains(KeyCode.LEFT)){
+              player.moveHalfLeft();
+            }
+            else{
+              player.moveLeft();
+            }
+          }
+          if (key == KeyCode.UP && player.pos.getY() >= 0) {
+            if(keys.contains(KeyCode.W)){
+              player.moveHalfUp();
+            }
+            else{
+              player.moveUp();
+            }
+          }
+          if (key == KeyCode.W && player.pos.getY() >= 0) {
+            if(keys.contains(KeyCode.UP)){
+              player.moveHalfUp();
+            }
+            else{
+              player.moveUp();
+            }
+          }
+          if (key == KeyCode.DOWN && player.pos.getY() <= 718.5) {
+            if(keys.contains(KeyCode.S)){
+              player.moveHalfDown();
+            }
+            else{
+              player.moveDown();
+            }
+          }
+          if (key == KeyCode.S && player.pos.getY() <= 718.5) {
+            if(keys.contains(KeyCode.DOWN)){
+              player.moveHalfDown();
+            }
+            else{
+              player.moveDown();
+            }
+          }
+
+          if (key == KeyCode.SPACE) {
+            player.shoot();
+            bullets.add(player.shoot());
+          }
+        }
+
         for(int i = 0; i < bullets.size(); i ++){
           bullets.get(i).display(g, 50, 60);
           bullets.get(i).update();
@@ -68,24 +141,13 @@ public class SpaceGameApp extends Application {
     timer.start();
 
     canvas.setOnKeyPressed(event -> {
-      if (((event.getCode() == KeyCode.RIGHT) || (event.getCode() == KeyCode.D)) && player.pos.getX() <= 718.5) {
-          player.moveRight();
-      }
-      if (((event.getCode() == KeyCode.LEFT) || (event.getCode() == KeyCode.A)) && player.pos.getX() >= -10) {
-        player.moveLeft();
-      }
-      if (((event.getCode() == KeyCode.UP) || (event.getCode() == KeyCode.W)) && player.pos.getY() >= 0) {
-        player.moveUp();
-      }
-      if (((event.getCode() == KeyCode.DOWN) || (event.getCode() == KeyCode.S)) && player.pos.getY() <= 718.5) {
-        player.moveDown();
-      }
-      if (event.getCode() == KeyCode.SPACE) {
-        player.shoot();
-        bullets.add(player.shoot());
-      }
+      keys.add(event.getCode());
     });
+
+    canvas.setOnKeyReleased(event -> {
+      keys.remove(event.getCode());
+    });
+
     canvas.requestFocus();
-    
   }
 }
