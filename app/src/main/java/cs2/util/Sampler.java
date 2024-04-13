@@ -60,8 +60,10 @@ public class Sampler {
             return prob;
         }
         else{
-            double add = getCount(str) / totalCount();
-            prob += add;
+            if (totalCount() != 0) {
+                double add = (double) getCount(str) / totalCount();
+                prob += add;
+            }
             return prob;
         }
     }
