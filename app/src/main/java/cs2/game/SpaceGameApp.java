@@ -68,11 +68,17 @@ public class SpaceGameApp extends Application {
     timer.start();
 
     canvas.setOnKeyPressed(event -> {
-      if (event.getCode() == KeyCode.RIGHT && player.pos.getX() <= 718.5) {
+      if (((event.getCode() == KeyCode.RIGHT) || (event.getCode() == KeyCode.D)) && player.pos.getX() <= 718.5) {
           player.moveRight();
       }
-      if (event.getCode() == KeyCode.LEFT && player.pos.getX() >= -10) {
+      if (((event.getCode() == KeyCode.LEFT) || (event.getCode() == KeyCode.A)) && player.pos.getX() >= -10) {
         player.moveLeft();
+      }
+      if (((event.getCode() == KeyCode.UP) || (event.getCode() == KeyCode.W)) && player.pos.getY() >= 0) {
+        player.moveUp();
+      }
+      if (((event.getCode() == KeyCode.DOWN) || (event.getCode() == KeyCode.S)) && player.pos.getY() <= 718.5) {
+        player.moveDown();
       }
       if (event.getCode() == KeyCode.SPACE) {
         player.shoot();

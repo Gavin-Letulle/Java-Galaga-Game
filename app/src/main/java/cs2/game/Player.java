@@ -39,4 +39,12 @@ public class Player extends Sprite {
   public void moveRight(){
     move(new Vec2(12, 0));
   }
+
+  public void moveUp(){
+    move(new Vec2(0, -12));
+  }
+
+  public void moveDown(){
+    move(new Vec2(0, 12));
+  }
 }
