@@ -29,6 +29,10 @@ public class Player extends Sprite {
   // This method should move the player left by some amount
   public void moveLeft() { }
   */
+
+  public void resetPos(){
+    pos = new Vec2(350.00, 700.00);
+  }
   public void moveLeft(){
     move(new Vec2(-6, 0));
   }

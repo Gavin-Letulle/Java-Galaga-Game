@@ -51,4 +51,10 @@ public abstract class Sprite {
     pos.addThis(delta);
   }
 
+  int counter = 0;
+  public boolean intersection(Sprite obj){
+    counter ++;
+    System.out.println("Intersection detected!" + counter);
+    return this.pos.equals(obj.pos);
+  }
 }

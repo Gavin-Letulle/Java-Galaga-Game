@@ -125,16 +125,25 @@ public class SpaceGameApp extends Application {
               player.moveDown();
             }
           }
-
           if (key == KeyCode.SPACE) {
             player.shoot();
             bullets.add(player.shoot());
           }
         }
 
-        for(int i = 0; i < bullets.size(); i ++){
+        /*for(int i = 0; i < bullets.size(); i ++){
           bullets.get(i).display(g, 50, 60);
           bullets.get(i).update();
+        }*/
+
+        //int bulletToRemove;
+        for(Bullet bullet : bullets){
+          bullet.display(g, 50, 60);
+          bullet.update();
+          if(bullet.intersection(player)){
+            //bullets.remove(bullet);
+            player.resetPos();
+          }
         }
       }
     };
