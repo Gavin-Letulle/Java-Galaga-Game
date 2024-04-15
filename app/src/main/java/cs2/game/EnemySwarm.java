@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public class EnemySwarm {
-  private ArrayList<Enemy> swarm;
+  public ArrayList<Enemy> swarm;
   public Image bulletPic;
   /*public int numCols;
   public int numRows;*/
@@ -70,5 +70,13 @@ public class EnemySwarm {
       }
     }
     return intersect;
+  }
+
+  public ArrayList<Enemy> getEnemies(){
+    ArrayList<Enemy> enemies = new ArrayList<>();
+    for(Enemy enemy : swarm){
+      enemies.add(enemy);
+    }
+    return enemies;
   }
 }
