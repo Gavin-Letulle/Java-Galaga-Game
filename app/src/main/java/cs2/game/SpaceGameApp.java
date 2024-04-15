@@ -44,7 +44,8 @@ public class SpaceGameApp extends Application {
 
     Player player = new Player(playerSprite, bulletSprite, new Vec2(350.0, 700.0), 100, 100);
     EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50);
-    ArrayList<Bullet> bullets = new ArrayList<>();
+    ArrayList<Bullet> playerBullets = new ArrayList<>();
+    ArrayList<Bullet> enemyBullets = new ArrayList<>();
     Set<KeyCode> keys = new HashSet<>();
 
     AnimationTimer timer = new AnimationTimer() {
@@ -57,7 +58,7 @@ public class SpaceGameApp extends Application {
 
         if(Math.random() * 45 < 1){
           swarm.shoot();
-          bullets.add(swarm.shoot());
+          enemyBullets.add(swarm.shoot());
         }
 
         for(KeyCode key : keys){
@@ -127,21 +128,26 @@ public class SpaceGameApp extends Application {
           }
           if (key == KeyCode.SPACE) {
             player.shoot();
-            bullets.add(player.shoot());
+            playerBullets.add(player.shoot());
           }
         }
 
-        for(Bullet bullet : bullets){
+        for(Bullet bullet : enemyBullets){
           bullet.display(g);
           bullet.update();
           if(bullet.intersection(player)){
             player.resetPos();
-            bullets.remove(bullet);
-          }
-          if(swarm.enemyIntersection(bullet)){
-            bullets.remove(bullet);
+            enemyBullets.remove(bullet);
           }
         }
+        for(Bullet bullet : playerBullets){
+          bullet.display(g);
+          bullet.update();
+          if(swarm.enemyIntersection(bullet)){
+            playerBullets.remove(bullet);
+          }
+      }
+        
       }
     };
     timer.start();
