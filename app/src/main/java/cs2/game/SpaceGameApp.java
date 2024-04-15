@@ -20,6 +20,7 @@ public class SpaceGameApp extends Application {
   public static final Image enemySprite2 = new Image("file:Butterfly.png");
   public static final Image enemySprite3 = new Image("file:Boss.webp");
   public static final Image bulletSprite = new Image("file:Bullet.png");
+  public final long shootCooldown = 225_000_000;
 
   public void start(Stage stage) {
     stage.setTitle("GALAGA");
@@ -49,6 +50,7 @@ public class SpaceGameApp extends Application {
 
     AnimationTimer timer = new AnimationTimer() {
       EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50);
+      public long lastShotTime = 0;
       public void handle(long t) {
         g.setFill(Color.BLACK);
         g.fillRect(0,0, 800,800);
@@ -127,8 +129,12 @@ public class SpaceGameApp extends Application {
             }
           }
           if (key == KeyCode.SPACE) {
-            player.shoot();
-            playerBullets.add(player.shoot());
+            long currentTime = System.nanoTime();
+            if (currentTime - lastShotTime >= shootCooldown) {
+                player.shoot();
+                playerBullets.add(player.shoot());
+                lastShotTime = currentTime;
+            }
           }
         }
 
