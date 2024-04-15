@@ -136,13 +136,12 @@ public class SpaceGameApp extends Application {
           bullets.get(i).update();
         }*/
 
-        //int bulletToRemove;
         for(Bullet bullet : bullets){
           bullet.display(g);
           bullet.update();
           if(bullet.intersection(player)){
-            //bullets.remove(bullet);
             player.resetPos();
+            bullets.remove(bullet);
           }
         }
       }
