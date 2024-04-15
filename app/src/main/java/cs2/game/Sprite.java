@@ -52,9 +52,33 @@ public abstract class Sprite {
   }
 
   int counter = 0;
-  public boolean intersection(Sprite obj){
+  /*public boolean intersection(Sprite obj){
     counter ++;
-    System.out.println("Intersection detected!" + counter);
-    return this.pos.equals(obj.pos);
+    //System.out.println("Intersection detected!" + counter);
+    if(pos == obj.pos){
+      return true;
+    }
+    else{
+      return false;
+    }
+    //return this.pos.equals(obj.pos);
+  }*/
+  public boolean intersection(Sprite obj) {
+    double x1 = pos.getX();
+    double y1 = pos.getY();
+    //double w1 = img.getWidth();
+    //double h1 = img.getHeight();
+    
+    double x2 = obj.pos.getX();
+    double y2 = obj.pos.getY();
+    //double w2 = obj.img.getWidth();
+    //double h2 = obj.img.getHeight();
+
+    if(x1 < x2 + 30 && x1 + 30 > x2 && y1 < y2 + 15 && y1 + 15 > y2){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

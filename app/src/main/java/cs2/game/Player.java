@@ -31,6 +31,7 @@ public class Player extends Sprite {
   */
 
   public void resetPos(){
+    //System.out.println("Player position reset");
     pos = new Vec2(350.00, 700.00);
   }
   public void moveLeft(){
