@@ -43,12 +43,12 @@ public class SpaceGameApp extends Application {
      */
 
     Player player = new Player(playerSprite, bulletSprite, new Vec2(350.0, 700.0), 100, 100);
-    EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50);
     ArrayList<Bullet> playerBullets = new ArrayList<>();
     ArrayList<Bullet> enemyBullets = new ArrayList<>();
     Set<KeyCode> keys = new HashSet<>();
 
     AnimationTimer timer = new AnimationTimer() {
+      EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50);
       public void handle(long t) {
         g.setFill(Color.BLACK);
         g.fillRect(0,0, 800,800);
@@ -144,6 +144,12 @@ public class SpaceGameApp extends Application {
         for(Bullet bullet : playerBullets){
           bullet.display(g);
           bullet.update();
+          for(Bullet enemyBullet : enemyBullets){
+            if((bullet.intersection(enemyBullet)) || enemyBullet.intersection(bullet)){
+              playerBullets.remove(bullet);
+              enemyBullets.remove(enemyBullet);
+            }
+          }
           if(swarm.enemyIntersection(bullet)){
             playerBullets.remove(bullet);
           }
@@ -153,6 +159,10 @@ public class SpaceGameApp extends Application {
           if(enemy.intersection(player)){
             player.resetPos();
           }
+        }
+
+        if(swarm.enemyCount() <= 0){
+          swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50);
         }
       }
     };

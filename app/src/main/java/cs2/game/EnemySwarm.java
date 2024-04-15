@@ -79,4 +79,8 @@ public class EnemySwarm {
     }
     return enemies;
   }
+
+  public int enemyCount(){
+    return swarm.size();
+  }
 }
