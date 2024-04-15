@@ -5,15 +5,19 @@ import javafx.scene.image.Image;
 
 public class Enemy extends Sprite {
   private Image bulletPicture;
+  public double width;
+  public double height;
 
   /*
   //This constructor should initialize all fields
   //**Remember that some fields are inherited from Sprite
   public Enemy(Image avatar, Image bulletPic, Vec2 p) { }
   */
-  public Enemy(Image avatar, Image bulletPic, Vec2 p){
-    super(avatar, p);
+  public Enemy(Image avatar, Image bulletPic, Vec2 p, double w, double h){
+    super(avatar, p, w, h);
     bulletPicture = bulletPic;
+    width = w;
+    height = h;
   }
   /*
   // This method should create a new Bullet object and return it
@@ -23,6 +27,6 @@ public class Enemy extends Sprite {
   */
   public Bullet shoot(){
     Vec2 clonedPos = new Vec2(pos.getX() + 2, pos.getY() + 18);
-    return new Bullet(bulletPicture, clonedPos, new Vec2(0, 8));
+    return new Bullet(bulletPicture, clonedPos, new Vec2(0, 8), width, height);
   }
 }

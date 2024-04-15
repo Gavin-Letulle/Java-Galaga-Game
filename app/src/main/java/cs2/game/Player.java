@@ -11,8 +11,8 @@ public class Player extends Sprite {
   //**Remember that some fields are inherited from Sprite
   public Player(Image avatar, Image bullPic, Vec2 p) { }
   */
-  public Player(Image avatar, Image bullPic, Vec2 p) {
-    super(avatar, p);
+  public Player(Image avatar, Image bullPic, Vec2 p, double w, double h) {
+    super(avatar, p, w, h);
     bulletPicture = bullPic;
   }
   /*
@@ -23,7 +23,7 @@ public class Player extends Sprite {
   */
   public Bullet shoot(){
     Vec2 clonedPos = new Vec2(pos.getX()+25, pos.getY()-25);
-    return new Bullet(bulletPicture, clonedPos, new Vec2(0, -25));
+    return new Bullet(bulletPicture, clonedPos, new Vec2(0, -25), 50, 50);
   }
   /*
   // This method should move the player left by some amount

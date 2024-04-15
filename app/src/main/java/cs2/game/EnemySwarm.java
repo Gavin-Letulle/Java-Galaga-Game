@@ -20,7 +20,7 @@ public class EnemySwarm {
   // in a grid pattern across the top of the screen.
   public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic) { }
   */
-  public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic){
+  public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic, double w, double h){
     /*for(int i = 0; i < (nRows * nCols); i++){
       swarm.add(new Enemy(enemPic, bullPic, new Vec2()));
     }*/
@@ -31,7 +31,7 @@ public class EnemySwarm {
       ArrayList<Enemy> row = new ArrayList<>();
       xPos = 80;
       for(int j = 0; j < nCols; j ++){
-        row.add(new Enemy(enemPic, bullPic, new Vec2(xPos, yPos)));
+        row.add(new Enemy(enemPic, bullPic, new Vec2(xPos, yPos), w, h));
         xPos += 65;
       }
       for(int j = 0; j < row.size(); j ++){

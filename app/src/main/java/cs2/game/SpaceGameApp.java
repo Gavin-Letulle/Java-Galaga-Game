@@ -42,8 +42,8 @@ public class SpaceGameApp extends Application {
      * at random should shoot and have that bullet added to the collection.
      */
 
-    Player player = new Player(playerSprite, bulletSprite, new Vec2(350.0, 700.0));
-    EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite);
+    Player player = new Player(playerSprite, bulletSprite, new Vec2(350.0, 700.0), 100, 100);
+    EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50);
     ArrayList<Bullet> bullets = new ArrayList<>();
     Set<KeyCode> keys = new HashSet<>();
 
@@ -52,7 +52,7 @@ public class SpaceGameApp extends Application {
         g.setFill(Color.BLACK);
         g.fillRect(0,0, 800,800);
 
-        player.display(g, 100, 100);
+        player.display(g);
         swarm.display(g, 50, 50);
 
         if(Math.random() * 45 < 1){
@@ -138,7 +138,7 @@ public class SpaceGameApp extends Application {
 
         //int bulletToRemove;
         for(Bullet bullet : bullets){
-          bullet.display(g, 50, 60);
+          bullet.display(g);
           bullet.update();
           if(bullet.intersection(player)){
             //bullets.remove(bullet);

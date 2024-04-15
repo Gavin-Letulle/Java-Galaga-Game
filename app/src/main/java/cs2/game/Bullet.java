@@ -12,8 +12,8 @@ public class Bullet extends Sprite {
   //**Remember that some fields are inherited from Sprite
   public Bullet(Image bul, Vec2 p, Vec2 v) { }
   */
-  public Bullet(Image bul, Vec2 p, Vec2 v){
-    super(bul, p);
+  public Bullet(Image bul, Vec2 p, Vec2 v, double w, double h){
+    super(bul, p, w, h);
     vel = v;
   }
   /*
