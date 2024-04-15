@@ -138,6 +138,9 @@ public class SpaceGameApp extends Application {
             player.resetPos();
             bullets.remove(bullet);
           }
+          if(swarm.enemyIntersection(bullet)){
+            bullets.remove(bullet);
+          }
         }
       }
     };

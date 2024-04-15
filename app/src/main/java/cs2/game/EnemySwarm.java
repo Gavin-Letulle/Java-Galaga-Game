@@ -60,4 +60,15 @@ public class EnemySwarm {
     Enemy enemy = swarm.get(randomInt);
     return enemy.shoot();
   }
+
+  public boolean enemyIntersection(Sprite obj){
+    boolean intersect = false;
+    for(Enemy enemy : swarm){
+      if(enemy.intersection(obj)){
+        swarm.remove(enemy);
+        intersect = true;
+      }
+    }
+    return intersect;
+  }
 }
