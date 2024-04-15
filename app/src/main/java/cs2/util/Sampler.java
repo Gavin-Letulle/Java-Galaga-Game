@@ -77,17 +77,15 @@ public class Sampler {
         }
     }
 
-    public String sample(){
-        String key = "";
-        HashMap<String,Double> probMap = new HashMap<String,Double>();
-        for(String word : map.keySet()){
-            probMap.put(word, getProbability(word));
-        }
-        for(String probWord : probMap.keySet()){
-            if(Math.random() <= probMap.get(probWord)){
-                key = probWord;
+    public String sample() {
+        double rand = Math.random();
+        double cumulativeProbability = 0.0;
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            cumulativeProbability += getProbability(entry.getKey());
+            if (rand <= cumulativeProbability) {
+                return entry.getKey();
             }
         }
-        return key;
+        return map.keySet().iterator().next();
     }
 }
