@@ -21,9 +21,6 @@ public class EnemySwarm {
   public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic) { }
   */
   public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic, double w, double h){
-    /*for(int i = 0; i < (nRows * nCols); i++){
-      swarm.add(new Enemy(enemPic, bullPic, new Vec2()));
-    }*/
     double yPos = 50;
     double xPos = 0;
     swarm = new ArrayList<>();
@@ -65,8 +62,9 @@ public class EnemySwarm {
     boolean intersect = false;
     for(Enemy enemy : swarm){
       if(enemy.intersection(obj)){
-        swarm.remove(enemy);
         intersect = true;
+        System.out.println("Enemy intersection");
+        swarm.remove(enemy);
       }
     }
     return intersect;

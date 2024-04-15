@@ -138,26 +138,29 @@ public class SpaceGameApp extends Application {
           }
         }
 
-        for(Bullet bullet : enemyBullets){
-          bullet.display(g);
-          bullet.update();
-          if(bullet.intersection(player)){
+        for(Bullet enemyBullet : enemyBullets){
+          enemyBullet.display(g);
+          enemyBullet.update();
+          if(enemyBullet.intersection(player)){
             player.resetPos();
-            enemyBullets.remove(bullet);
+            enemyBullets.remove(enemyBullet);
           }
         }
 
-        for(Bullet bullet : playerBullets){
-          bullet.display(g);
-          bullet.update();
-          for(Bullet enemyBullet : enemyBullets){
-            if((bullet.intersection(enemyBullet)) || enemyBullet.intersection(bullet)){
-              playerBullets.remove(bullet);
-              enemyBullets.remove(enemyBullet);
-            }
+        for(Bullet playerBullet : playerBullets){
+          playerBullet.display(g);
+          playerBullet.update();
+          if(swarm.enemyIntersection(playerBullet)){
+            System.out.println("Enemy hit with bullet");
+            playerBullets.remove(playerBullet);
           }
-          if(swarm.enemyIntersection(bullet)){
-            playerBullets.remove(bullet);
+          else{
+            for(Bullet enemyBullet : enemyBullets){
+              if((playerBullet.intersection(enemyBullet)) || enemyBullet.intersection(playerBullet)){
+                playerBullets.remove(playerBullet);
+                enemyBullets.remove(enemyBullet);
+              }
+            }
           }
         }
 
