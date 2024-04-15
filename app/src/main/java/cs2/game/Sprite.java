@@ -54,14 +54,14 @@ public abstract class Sprite {
   public void move(Vec2 delta){
     pos.addThis(delta);
   }
-  
+
   public boolean intersection(Sprite obj) {
     double x1 = pos.getX() + width / 2; 
     double y1 = pos.getY() + height / 2; 
     double x2 = obj.pos.getX() + obj.width / 2; 
     double y2 = obj.pos.getY() + obj.height / 2; 
     double distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    double threshold = 20; 
+    double threshold = 22; 
     
     if (distance < threshold) {
         double w1 = width;
@@ -69,10 +69,7 @@ public abstract class Sprite {
         double w2 = obj.width;
         double h2 = obj.height;
 
-        return x1 < x2 + w2 &&
-               x1 + w1 > x2 &&
-               y1 < y2 + h2 &&
-               y1 + h1 > y2;
+        return x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2;
     } 
     else {
         return false;

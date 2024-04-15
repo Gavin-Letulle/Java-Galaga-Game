@@ -131,11 +131,6 @@ public class SpaceGameApp extends Application {
           }
         }
 
-        /*for(int i = 0; i < bullets.size(); i ++){
-          bullets.get(i).display(g, 50, 60);
-          bullets.get(i).update();
-        }*/
-
         for(Bullet bullet : bullets){
           bullet.display(g);
           bullet.update();
