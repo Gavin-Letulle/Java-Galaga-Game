@@ -150,16 +150,11 @@ public class SpaceGameApp extends Application {
         for(Bullet playerBullet : playerBullets){
           playerBullet.display(g);
           playerBullet.update();
-          if(swarm.enemyIntersection(playerBullet)){
-            System.out.println("Enemy hit with bullet");
-            playerBullets.remove(playerBullet);
-          }
-          else{
-            for(Bullet enemyBullet : enemyBullets){
-              if((playerBullet.intersection(enemyBullet)) || enemyBullet.intersection(playerBullet)){
-                playerBullets.remove(playerBullet);
-                enemyBullets.remove(enemyBullet);
-              }
+          swarm.enemyIntersection(playerBullet);
+          for(Bullet enemyBullet : enemyBullets){
+            if((playerBullet.intersection(enemyBullet)) || enemyBullet.intersection(playerBullet)){
+              playerBullets.remove(playerBullet);
+              enemyBullets.remove(enemyBullet);
             }
           }
         }
@@ -169,6 +164,8 @@ public class SpaceGameApp extends Application {
             player.resetPos();
           }
         }
+
+        playerBullets.remove(swarm.getBullet());
 
         if(swarm.enemyCount() <= 0){
           swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50);

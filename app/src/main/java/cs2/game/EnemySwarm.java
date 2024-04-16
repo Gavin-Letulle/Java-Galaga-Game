@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 public class EnemySwarm {
   public ArrayList<Enemy> swarm;
   public Image bulletPic;
+  public Bullet bullet;
   /*public int numCols;
   public int numRows;*/
 
@@ -58,16 +59,20 @@ public class EnemySwarm {
     return enemy.shoot();
   }
 
-  public boolean enemyIntersection(Sprite obj){
+  public boolean enemyIntersection(Bullet obj){
     boolean intersect = false;
     for(Enemy enemy : swarm){
       if(enemy.intersection(obj)){
         intersect = true;
-        System.out.println("Enemy intersection");
+        bullet = obj;
         swarm.remove(enemy);
       }
     }
     return intersect;
+  }
+
+  public Bullet getBullet(){
+    return bullet;
   }
 
   public ArrayList<Enemy> getEnemies(){
