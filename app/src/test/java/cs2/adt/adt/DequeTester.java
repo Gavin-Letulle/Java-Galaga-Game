@@ -80,4 +80,43 @@ public class DequeTester {
     assertEquals(dq.size(), 2);
     assertEquals(dq.peekBack(), 4);
   }
+
+  @Test
+  void testAll(){
+    assertTrue(dq.isEmpty());
+    assertThrows(NoSuchElementException.class, () -> dq.peekFront());
+    assertThrows(NoSuchElementException.class, () -> dq.peekBack());
+    assertThrows(NoSuchElementException.class, () -> dq.front());
+    assertThrows(NoSuchElementException.class, () -> dq.back());
+    assertEquals(dq.size(), 0);
+    dq.append(1);
+    dq.append(2);
+    dq.prepend(3);
+    dq.prepend(4);
+    //[4312]
+    assertEquals(dq.size(), 4);
+    assertEquals(dq.peekFront(), 4);
+    assertEquals(dq.peekBack(), 2);
+    assertEquals(dq.back(), 2);
+    assertEquals(dq.back(), 1);
+    assertEquals(dq.size(), 2);
+    //43
+    dq.prepend(5);
+    dq.append(6);
+    //5436
+    assertEquals(dq.size(), 4);
+    assertEquals(dq.front(), 5);
+    assertEquals(dq.front(), 4);
+    assertEquals(dq.size(), 2);
+    //36
+    assertEquals(dq.peekFront(), 3);
+    assertEquals(dq.peekBack(), 6);
+    dq.front();
+    dq.back();
+    assertEquals(dq.size(), 0);
+    assertThrows(NoSuchElementException.class, () -> dq.peekFront());
+    assertThrows(NoSuchElementException.class, () -> dq.peekBack());
+    assertThrows(NoSuchElementException.class, () -> dq.front());
+    assertThrows(NoSuchElementException.class, () -> dq.back());
+  }
 }
