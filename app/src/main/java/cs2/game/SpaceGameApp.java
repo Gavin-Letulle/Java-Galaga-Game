@@ -140,6 +140,9 @@ public class SpaceGameApp extends Application {
             player.resetPos();
             enemyBullets.remove(enemyBullet);
           }
+          if(enemyBullet.pos.getY() > 800){
+            enemyBullets.remove(enemyBullet);
+          }
         }
 
         for(Bullet playerBullet : playerBullets){
@@ -151,6 +154,9 @@ public class SpaceGameApp extends Application {
               playerBullets.remove(playerBullet);
               enemyBullets.remove(enemyBullet);
             }
+          }
+          if(playerBullet.pos.getY() < -75){
+            playerBullets.remove(playerBullet);
           }
         }
 
