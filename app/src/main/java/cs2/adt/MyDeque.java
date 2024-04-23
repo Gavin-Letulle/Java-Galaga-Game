@@ -1,5 +1,6 @@
 package cs2.adt;
 
+import java.util.EmptyStackException;
 import java.util.NoSuchElementException;
 
 public class MyDeque<T> implements Deque<T> {
@@ -31,7 +32,15 @@ public class MyDeque<T> implements Deque<T> {
   }
 
   public void append(T item){
-    
+    if(len == arr.length) {
+      T[] tmp = (T[])new Object[len * 2];
+      for(int i=0; i<len; i++) {
+        tmp[i] = arr[i];
+      }
+      arr = tmp;
+    }
+    arr[len] = item;
+    len += 1;
   }
 
   /**
@@ -39,8 +48,13 @@ public class MyDeque<T> implements Deque<T> {
    * @return the item at the front of the deque
    * @throws NoSuchElementException if the deque is empty
    */
-  public T front() throws NoSuchElementException{
-    return null;
+  public T back() throws NoSuchElementException{
+    if(isEmpty()) {
+      throw new EmptyStackException();
+    }
+    beg = (beg + 1) % arr.length;
+    len--;
+    return arr[beg-1];
   }
 
   /**
@@ -48,8 +62,14 @@ public class MyDeque<T> implements Deque<T> {
    * @return the item at the back of the deque
    * @throws NoSuchElementException if the deque is empty
    */
-  public T back() throws NoSuchElementException{
-    return null;
+  public T front() throws NoSuchElementException{
+    if(isEmpty()) {
+      throw new EmptyStackException();
+    }
+    T frontItem = arr[beg];
+    beg = (beg + 1) % arr.length;
+    len--;
+    return frontItem;
   }
 
   /**
@@ -57,8 +77,11 @@ public class MyDeque<T> implements Deque<T> {
    * @return the item at the front of the deque
    * @throws NoSuchElementException if the deque is empty
    */
-  public T peekFront() throws NoSuchElementException{
-    return null;
+  public T peekBack() throws NoSuchElementException{
+    if(isEmpty()) {
+      throw new EmptyStackException();
+    }
+    return arr[len - 1];
   }
 
   /**
@@ -66,8 +89,11 @@ public class MyDeque<T> implements Deque<T> {
    * @return the item at the back of the deque
    * @throws NoSuchElementException if the deque is empty
    */
-  public T peekBack() throws NoSuchElementException{
-    return null;
+  public T peekFront() throws NoSuchElementException{
+    if(isEmpty()) {
+      throw new EmptyStackException();
+    }
+    return arr[0];
   }
 
   /**
