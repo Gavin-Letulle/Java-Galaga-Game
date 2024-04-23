@@ -20,28 +20,16 @@ public class SpaceGameApp extends Application {
   public static final Image enemySprite2 = new Image("file:Butterfly.png");
   public static final Image enemySprite3 = new Image("file:Boss.webp");
   public static final Image bulletSprite = new Image("file:Bullet.png");
-  public final long shootCooldown = 225_000_000;
+  public final long playerShootCooldown = 225_000_000;
+  public final long enemyShootCooldown = 300_000_000;
 
   public void start(Stage stage) {
     stage.setTitle("GALAGA");
     stage.show();
-    //You can change the window size here if you want
+
     Canvas canvas = new Canvas(800,800);
     stage.setScene(new Scene(new StackPane(canvas)));
     GraphicsContext g = canvas.getGraphicsContext2D();
-
-    /* Your main game logic will go here
-     * This will likely mean creating instances of Player and EnemySwarm, along
-     * with a collection (probably ArrayList) of Bullets.
-     * 
-     * You should create a KeyPressed event handler that moves the player
-     * when the left or right arrow keys are pressed, and fires a bullet when
-     * the space bar is pressed. Add the bullet created to the collection.
-     * 
-     * You should also create an AnimationTimer that displays everything and
-     * moves the bullets around the screen. Also, an enemy chosen from the swarm
-     * at random should shoot and have that bullet added to the collection.
-     */
 
     Player player = new Player(playerSprite, bulletSprite, new Vec2(350.0, 700.0), 100, 100);
     ArrayList<Bullet> playerBullets = new ArrayList<>();
@@ -50,7 +38,8 @@ public class SpaceGameApp extends Application {
 
     AnimationTimer timer = new AnimationTimer() {
       EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50);
-      public long lastShotTime = 0;
+      public long playerLastShotTime = 0;
+      public long enemyLastShotTime = 0;
       public void handle(long t) {
         g.setFill(Color.BLACK);
         g.fillRect(0,0, 800,800);
@@ -58,9 +47,16 @@ public class SpaceGameApp extends Application {
         player.display(g);
         swarm.display(g, 50, 50);
 
-        if(Math.random() * 45 < 1){
+        long currentTime = System.nanoTime();
+        if (currentTime - enemyLastShotTime >= enemyShootCooldown) {
+          /*if(Math.random() * 45 < 1){
+            swarm.shoot();
+            enemyBullets.add(swarm.shoot());
+            enemyLastShotTime = currentTime;
+          }*/
           swarm.shoot();
           enemyBullets.add(swarm.shoot());
+          enemyLastShotTime = currentTime;
         }
 
         for(KeyCode key : keys){
@@ -129,11 +125,10 @@ public class SpaceGameApp extends Application {
             }
           }
           if (key == KeyCode.SPACE) {
-            long currentTime = System.nanoTime();
-            if (currentTime - lastShotTime >= shootCooldown) {
+            if (currentTime - playerLastShotTime >= playerShootCooldown) {
                 player.shoot();
                 playerBullets.add(player.shoot());
-                lastShotTime = currentTime;
+                playerLastShotTime = currentTime;
             }
           }
         }
