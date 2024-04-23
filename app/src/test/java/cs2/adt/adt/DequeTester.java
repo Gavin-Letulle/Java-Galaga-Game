@@ -76,10 +76,8 @@ public class DequeTester {
     assertEquals(dq.size(), 3);
     assertEquals(dq.peekFront(), 2);
     assertEquals(dq.peekBack(), 4);
-    dq.front();
+    assertEquals(dq.front(), 2);
     assertEquals(dq.size(), 2);
-    //assertEquals(dq.peekBack(), 4);
-    //assertEquals(dq.peekFront(), 3);
-    //assertEquals(dq.peekFront(), 4);
+    assertEquals(dq.peekBack(), 4);
   }
 }
