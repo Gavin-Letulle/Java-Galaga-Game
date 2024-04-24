@@ -39,7 +39,6 @@ public class SpaceGameApp extends Application {
     AnimationTimer timer = new AnimationTimer() {
       long playerLastShotTime = 0;
       long enemyLastShotTime = 0;
-      //EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50, 0);
       EnemySwarm swarm;
       boolean gameOver = false;
       int lives = 3;
