@@ -9,6 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyCode;
 import java.util.*;
@@ -47,6 +48,10 @@ public class SpaceGameApp extends Application {
 
         player.display(g);
         swarm.display(g, 50, 50);
+        g.setFill(Color.WHITE);
+        g.setFont(Font.font("Arial", 25));
+        g.fillText("Score: " + swarm.getScore(), 250, 38);
+        g.fillText("Lives: " + lives, 450, 38);
 
         long currentTime = System.nanoTime();
         if (currentTime - enemyLastShotTime >= enemyShootCooldown) {
@@ -174,8 +179,6 @@ public class SpaceGameApp extends Application {
         if(swarm.enemyCount() <= 0){
           swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50, swarm.getScore());
         }
-        System.out.println("Score: " + swarm.getScore());
-        System.out.println("Lives: " + lives);
       }
     };
     timer.start();
