@@ -3,6 +3,7 @@ package cs2.game;
 import cs2.util.Vec2;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,9 +39,11 @@ public class SpaceGameApp extends Application {
     AnimationTimer timer = new AnimationTimer() {
       long playerLastShotTime = 0;
       long enemyLastShotTime = 0;
-      EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50, 0);
+      //EnemySwarm swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50, 0);
+      EnemySwarm swarm;
       boolean gameOver = false;
       int lives = 3;
+      boolean swarmMade = false;
       public void handle(long t) {
         g.setFill(Color.BLACK);
         g.fillRect(0,0, 800,800);
@@ -61,6 +64,10 @@ public class SpaceGameApp extends Application {
             gameOver = true;
           }
 
+          if(!swarmMade){
+            swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50, 0);
+            swarmMade = true;
+          }
           player.display(g);
           swarm.display(g, 50, 50);
           g.setFill(Color.WHITE);
@@ -194,13 +201,20 @@ public class SpaceGameApp extends Application {
       else{
         g.setFill(Color.WHITE);
         g.setFont(Font.font("JGB18030 Bitmap", 50));
-        g.fillText("GAME OVER", 400, 400);
+        g.fillText("GAME OVER", 250, 375);
         g.setFont(Font.font("JGB18030 Bitmap", 25));
-        g.fillText("Press Enter to restart", 400, 500);
+        g.fillText("Press Enter to restart", 275, 450);
         for(KeyCode key : keys){
           if (key == KeyCode.ENTER) {
             lives = 3;
-            swarm.setScore(0);
+            swarmMade = false;
+            Platform.runLater(() -> swarm.setScore(0));
+            for(Bullet enemyBullet : enemyBullets){
+              enemyBullets.remove(enemyBullet);
+            }
+            for(Bullet playerBullet : playerBullets){
+              playerBullets.remove(playerBullet);
+            }
             gameOver = false;
           }
         }
@@ -208,5 +222,5 @@ public class SpaceGameApp extends Application {
     }
   };
   timer.start();
-}
+  }
 }
