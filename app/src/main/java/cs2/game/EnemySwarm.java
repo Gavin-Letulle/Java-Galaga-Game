@@ -82,6 +82,10 @@ public class EnemySwarm {
     return score;
   }
 
+  public void setScore(int sc){
+    score = sc;
+  }
+
   public ArrayList<Enemy> getEnemies(){
     ArrayList<Enemy> enemies = new ArrayList<>();
     for(Enemy enemy : swarm){
