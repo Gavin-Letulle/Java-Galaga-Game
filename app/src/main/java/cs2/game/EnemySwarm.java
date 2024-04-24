@@ -10,6 +10,7 @@ public class EnemySwarm {
   public ArrayList<Enemy> swarm;
   public Image bulletPic;
   public Bullet bullet;
+  public int score;
   /*public int numCols;
   public int numRows;*/
 
@@ -21,7 +22,8 @@ public class EnemySwarm {
   // in a grid pattern across the top of the screen.
   public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic) { }
   */
-  public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic, double w, double h){
+  public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic, double w, double h, int newScore){
+    score = newScore;
     double yPos = 50;
     double xPos = 0;
     swarm = new ArrayList<>();
@@ -66,6 +68,7 @@ public class EnemySwarm {
         intersect = true;
         bullet = obj;
         swarm.remove(enemy);
+        score ++;
       }
     }
     return intersect;
@@ -73,6 +76,10 @@ public class EnemySwarm {
 
   public Bullet getBullet(){
     return bullet;
+  }
+
+  public int getScore(){
+    return score;
   }
 
   public ArrayList<Enemy> getEnemies(){
