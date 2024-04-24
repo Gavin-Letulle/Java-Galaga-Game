@@ -82,12 +82,43 @@ public class DequeTester {
   }
 
   @Test
+  void testExceptions(){
+    try {
+      dq.peekFront();
+      fail("Exception not thrown when peekFront empty deque");
+    }
+    catch (NoSuchElementException e) {
+
+    }
+
+    try {
+      dq.peekBack();
+      fail("Exception not thrown when peekBack empty deque");
+    }
+    catch (NoSuchElementException e) {
+
+    }
+
+    try {
+      dq.front();
+      fail("Exception not thrown when front empty deque");
+    }
+    catch (NoSuchElementException e) {
+
+    }
+
+    try {
+      dq.back();
+      fail("Exception not thrown when back empty deque");
+    }
+    catch (NoSuchElementException e) {
+
+    }
+  }
+
+  @Test
   void testAll(){
     assertTrue(dq.isEmpty());
-    assertThrows(NoSuchElementException.class, () -> dq.peekFront());
-    assertThrows(NoSuchElementException.class, () -> dq.peekBack());
-    assertThrows(NoSuchElementException.class, () -> dq.front());
-    assertThrows(NoSuchElementException.class, () -> dq.back());
     assertEquals(dq.size(), 0);
     dq.append(1);
     dq.append(2);
@@ -114,9 +145,37 @@ public class DequeTester {
     dq.front();
     dq.back();
     assertEquals(dq.size(), 0);
-    assertThrows(NoSuchElementException.class, () -> dq.peekFront());
-    assertThrows(NoSuchElementException.class, () -> dq.peekBack());
-    assertThrows(NoSuchElementException.class, () -> dq.front());
-    assertThrows(NoSuchElementException.class, () -> dq.back());
+
+    try {
+      dq.peekFront();
+      fail("Exception not thrown when peekFront empty deque");
+    }
+    catch (NoSuchElementException e) {
+
+    }
+
+    try {
+      dq.peekBack();
+      fail("Exception not thrown when peekBack empty deque");
+    }
+    catch (NoSuchElementException e) {
+
+    }
+
+    try {
+      dq.front();
+      fail("Exception not thrown when front empty deque");
+    }
+    catch (NoSuchElementException e) {
+
+    }
+
+    try {
+      dq.back();
+      fail("Exception not thrown when back empty deque");
+    }
+    catch (NoSuchElementException e) {
+
+    }
   }
 }
