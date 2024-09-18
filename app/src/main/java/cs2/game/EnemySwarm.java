@@ -11,18 +11,8 @@ public class EnemySwarm {
   public Image bulletPic;
   public Bullet bullet;
   public int score;
-  /*public int numCols;
-  public int numRows;*/
 
-  /*
-  // This constructor should create a swarm of enemies in a grid
-  // The grid should be nRows x nCols in size.
-  // The enemPic and bullPic should be used to create the Enemy instances
-  // that are added to the ArrayList. The enemies should be spaced out
-  // in a grid pattern across the top of the screen.
-  public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic) { }
-  */
-  public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic, double w, double h, int newScore){
+  public EnemySwarm(int nRows, int nCols, Image enemPic, Image bullPic, double w, double h, int newScore){ //Creates a grid of enemies
     score = newScore;
     double yPos = 50;
     double xPos = 0;
@@ -40,28 +30,21 @@ public class EnemySwarm {
       yPos += 50;
     }
   }
-  /*
-  // This method should display all enemies in the swarm
-  public void display(GraphicsContext g) { }
-  */
-  public void display(GraphicsContext g, double w, double h){
+
+  public void display(GraphicsContext g, double w, double h){ //Calls display on each enemy in swarm
     for(int i = 0; i < swarm.size(); i++){
       Enemy enemy = swarm.get(i);
       g.drawImage(enemy.img, enemy.pos.getX(), enemy.pos.getY(), w, h);
     }
   }
-  /*
-  // This method should choose one enemy at random from the swarm,
-  // and have that enemy shoot a bullet. Return that Bullet.
-  public Bullet shoot() { }
-  */
-  public Bullet shoot(){
+
+  public Bullet shoot(){ //Makes random enemy in swarm shoot
     int randomInt = (int) (Math.random() * (swarm.size() + 1));
     Enemy enemy = swarm.get(randomInt);
     return enemy.shoot();
   }
 
-  public boolean enemyIntersection(Bullet obj){
+  public boolean enemyIntersection(Bullet obj){ //Removes an enemy if they are hit by a bullet
     boolean intersect = false;
     for(Enemy enemy : swarm){
       if(enemy.intersection(obj)){

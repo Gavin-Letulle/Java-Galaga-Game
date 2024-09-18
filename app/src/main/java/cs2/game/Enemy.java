@@ -8,24 +8,14 @@ public class Enemy extends Sprite {
   public double width;
   public double height;
 
-  /*
-  //This constructor should initialize all fields
-  //**Remember that some fields are inherited from Sprite
-  public Enemy(Image avatar, Image bulletPic, Vec2 p) { }
-  */
-  public Enemy(Image avatar, Image bulletPic, Vec2 p, double w, double h){
+  public Enemy(Image avatar, Image bulletPic, Vec2 p, double w, double h){  //Creates an instance of one enemy
     super(avatar, p, w, h);
     bulletPicture = bulletPic;
     width = w;
     height = h;
   }
-  /*
-  // This method should create a new Bullet object and return it
-  // The Bullet should be initialized with the bulletPicture, the
-  // current position of the enemy, and a velocity going down the screen
-  public Bullet shoot() { }
-  */
-  public Bullet shoot(){
+
+  public Bullet shoot(){ //Creates a bullet to shoot from the current enemy's position plus an offset
     Vec2 clonedPos = new Vec2(pos.getX() + 2, pos.getY() + 18);
     return new Bullet(bulletPicture, clonedPos, new Vec2(0, 8), width, height);
   }

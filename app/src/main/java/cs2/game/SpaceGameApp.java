@@ -1,5 +1,9 @@
 package cs2.game;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import cs2.util.Vec2;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -8,12 +12,11 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.input.KeyCode;
-import java.util.*;
 
 public class SpaceGameApp extends Application {
 
@@ -31,10 +34,10 @@ public class SpaceGameApp extends Application {
     stage.setScene(new Scene(new StackPane(canvas)));
     GraphicsContext g = canvas.getGraphicsContext2D();
 
-    Player player = new Player(playerSprite, bulletSprite, new Vec2(350.0, 700.0), 100, 100);
-    ArrayList<Bullet> playerBullets = new ArrayList<>();
-    ArrayList<Bullet> enemyBullets = new ArrayList<>();
-    Set<KeyCode> keys = new HashSet<>();
+    Player player = new Player(playerSprite, bulletSprite, new Vec2(350.0, 700.0), 100, 100); //Creates an instance of the player
+    ArrayList<Bullet> playerBullets = new ArrayList<>(); //Creates an array list for each bullet shot by the player to enter
+    ArrayList<Bullet> enemyBullets = new ArrayList<>(); //Same but for enemy bullets
+    Set<KeyCode> keys = new HashSet<>(); //Creates an array list for each key input to be stored
 
     AnimationTimer timer = new AnimationTimer() {
       long playerLastShotTime = 0;
@@ -47,42 +50,42 @@ public class SpaceGameApp extends Application {
         g.setFill(Color.BLACK);
         g.fillRect(0,0, 800,800);
 
-        canvas.setOnKeyPressed(event -> {
+        canvas.setOnKeyPressed(event -> { //Puts each key press into array list
           keys.add(event.getCode());
         });
     
-        canvas.setOnKeyReleased(event -> {
+        canvas.setOnKeyReleased(event -> { //Takes each released key out of array list
           keys.remove(event.getCode());
         });
     
         canvas.requestFocus();
 
-        if(gameOver == false){
+        if(gameOver == false){ //All code underneath only runs if there is no game over
 
           if(lives <= 0){
             gameOver = true;
           }
 
-          if(!swarmMade){
+          if(!swarmMade){ //Makes new swarm at start of game and after restarting the game
             swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50, 0);
             swarmMade = true;
           }
-          player.display(g);
-          swarm.display(g, 50, 50);
+          player.display(g); //Makes player visible on screen
+          swarm.display(g, 50, 50); //Makes swarm visible on screen
           g.setFill(Color.WHITE);
           g.setFont(Font.font("JGB18030 Bitmap", 25));
           g.fillText("Score: " + swarm.getScore(), 250, 38);
           g.fillText("Lives: " + lives, 450, 38);
 
           long currentTime = System.nanoTime();
-          if (currentTime - enemyLastShotTime >= enemyShootCooldown) {
+          if (currentTime - enemyLastShotTime >= enemyShootCooldown) { //Makes sure swarm doesn't constantly fire
             swarm.shoot();
             enemyBullets.add(swarm.shoot());
             enemyLastShotTime = currentTime;
           }
 
           for(KeyCode key : keys){
-            if (key == KeyCode.RIGHT && player.pos.getX() <= 718.5) {
+            if (key == KeyCode.RIGHT && player.pos.getX() <= 718.5) { //Checks to make sure player can't move twice as fast using both D and RIGHT keys
               if(keys.contains(KeyCode.D)){
                 player.moveHalfRight();
               }
@@ -146,7 +149,7 @@ public class SpaceGameApp extends Application {
                 player.moveDown();
               }
             }
-            if (key == KeyCode.SPACE) {
+            if (key == KeyCode.SPACE) { //Shoots but makes sure player can't constantly fire
               if (currentTime - playerLastShotTime >= playerShootCooldown) {
                   player.shoot();
                   playerBullets.add(player.shoot());
@@ -155,7 +158,7 @@ public class SpaceGameApp extends Application {
             }
           }
 
-          for(Bullet enemyBullet : enemyBullets){
+          for(Bullet enemyBullet : enemyBullets){ //Makes each enemy bullet hurt player if intersection is triggered
             enemyBullet.display(g);
             enemyBullet.update();
             if(enemyBullet.intersection(player)){
@@ -163,27 +166,27 @@ public class SpaceGameApp extends Application {
               player.resetPos();
               enemyBullets.remove(enemyBullet);
             }
-            if(enemyBullet.pos.getY() > 800){
+            if(enemyBullet.pos.getY() > 800){ //Removes off-screen enemy bullets
               enemyBullets.remove(enemyBullet);
             }
           }
 
-          for(Bullet playerBullet : playerBullets){
+          for(Bullet playerBullet : playerBullets){ //Makes each player bullet remove an enemy if intersection is triggered
             playerBullet.display(g);
             playerBullet.update();
             swarm.enemyIntersection(playerBullet);
-            for(Bullet enemyBullet : enemyBullets){
+            for(Bullet enemyBullet : enemyBullets){ //Makes player and enemy bullets destroy each other if they collide
               if((playerBullet.intersection(enemyBullet)) || enemyBullet.intersection(playerBullet)){
                 playerBullets.remove(playerBullet);
                 enemyBullets.remove(enemyBullet);
               }
             }
-            if(playerBullet.pos.getY() < -75){
+            if(playerBullet.pos.getY() < -75){ //Removes off-screen player bullets
               playerBullets.remove(playerBullet);
             }
           }
 
-          for(Enemy enemy : swarm.getEnemies()){
+          for(Enemy enemy : swarm.getEnemies()){ //Player resets position and loses life if they collide with enemy 
             if(enemy.intersection(player)){
               lives --;
               player.resetPos();
@@ -192,12 +195,12 @@ public class SpaceGameApp extends Application {
 
           playerBullets.remove(swarm.getBullet());
 
-          if(swarm.enemyCount() <= 0){
+          if(swarm.enemyCount() <= 0){ //Makes new swarm when all enemies die
             swarm = new EnemySwarm(5, 10, enemySprite2, bulletSprite, 50, 50, swarm.getScore());
           }
         }
 
-      else{
+      else{ //End screen lets you restart and resets everything
         g.setFill(Color.WHITE);
         g.setFont(Font.font("JGB18030 Bitmap", 50));
         g.fillText("GAME OVER", 250, 375);
