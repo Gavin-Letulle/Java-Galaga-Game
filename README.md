@@ -1,1 +1,3 @@
-I attempted to recreate a basic version of the classic retro shooter game Galaga using Java FX graphics.
+IMPORTANT:
+You must have gradle installed in order to run the game.
+Once you have gradle installed, you can run the command "./gradlew run -Pmain=cs2.game.SpaceGameApp"

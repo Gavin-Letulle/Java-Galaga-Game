@@ -18,14 +18,14 @@ public abstract class Sprite {
   }
 
   public void display(GraphicsContext g) { 
-    g.drawImage(img, pos.getX(), pos.getY(), width, height);
+    g.drawImage(img, pos.getX(), pos.getY(), width, height); //Uses Java Graphics to display each sprite
   }
   
-  public void move(Vec2 delta){
+  public void move(Vec2 delta){ //Updates position with movement vector 
     pos.addThis(delta);
   }
 
-  public boolean intersection(Sprite obj) {
+  public boolean intersection(Sprite obj) { //Calculates if two sprites intersect one another using a threshold
     double x1 = pos.getX() + width / 2; 
     double y1 = pos.getY() + height / 2; 
     double x2 = obj.pos.getX() + obj.width / 2; 
